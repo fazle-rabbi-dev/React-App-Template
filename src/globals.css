@@ -1,0 +1,151 @@
+@font-face {
+  font-family: 'Switzer-Light';
+  src: url('../assets/fonts/Switzer-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Switzer-Regular';
+  src: url('../assets/fonts/Switzer-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Switzer-Medium';
+  src: url('../assets/fonts/Switzer-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Switzer-Bold';
+  src: url('../assets/fonts/Switzer-Bold.ttf') format('truetype');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer utilities {
+  body {
+    @apply min-h-screen bg-[white] font-switzer-regular dark:bg-bl-50 dark:text-wh-50;
+  }
+  
+  /*==== Layout ====*/
+  .max-container {
+    @apply flex-1 w-full mx-auto md:max-w-3xl xl:max-w-5xl;
+  }
+
+  .padding-container {
+    @apply px-6 pb-10 md:px-0;
+  }
+  
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  
+  .flex-end {
+    @apply flex justify-end;
+  }
+  
+  
+  /*==== Typography ====*/
+  .heading1 {
+    @apply text-5xl  tracking-wide;
+  }
+  
+  .heading2 {
+    @apply text-4xl  tracking-wide;
+  }
+  
+  .heading3 {
+    @apply text-3xl  tracking-wide;
+  }
+  
+  .heading4 {
+    @apply text-2xl  tracking-wide;
+  }
+  
+  .heading5 {
+    @apply text-xl  tracking-wide;
+  }
+  
+  .body-text {
+    @apply text-bl-60 tracking-wide leading-5;
+  }
+  
+  .btn-base {
+    @apply w-full h-12;
+  }
+  
+  .btn-primary {
+    @apply bg-violet-600 text-wh-50;
+  }
+  
+  .btn-primary-outline {
+    @apply border-[1px] border-violet-600 text-violet-600;
+  }
+  
+  .btn-gray {
+    @apply bg-wh-60 text-bl-50;
+  }
+  
+  .social-auth-btn{
+    @apply block flex items-center justify-center gap-2 w-full h-12 border-[1px] border-gray-50 rounded-lg
+  }
+  
+  .hr-line {
+    @apply flex-1 bg-gray-50 h-[.5px]
+  }
+  
+  /*==== Form ====*/
+  .form-input {
+    @apply h-10 w-full px-4 rounded-lg bg-transparent border-[1px] border-gray-50 outline-0 outline-violet-500 focus:outline-2 placeholder:text-sm
+  }
+  
+  .error-message {
+    @apply text-rose-500;
+  }
+  
+  .bg-gradient-violet {
+    @apply bg-gradient-to-r from-sky-600 to-violet-600 to-60% 
+  }
+  
+  .text-gradient-violet {
+    @apply bg-gradient-to-r from-sky-600 to-violet-600 to-60% bg-clip-text text-transparent
+  }
+}
+
+
+/* Background Gradients */
+.bg-gradient_blue-purple {
+  background: linear-gradient(90deg, #4ca5ff 0%, #b573f8 100%);
+}
+
+.bg-gradient_purple {
+  background: linear-gradient(90deg, #854cff 0%, #b573f8 100%);
+}
+
+/* Text Gradient */
+.text-gradient_blue_purple {
+  background: linear-gradient(90deg, #4ca5ff 2.34%, #b673f8 100.78%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  display: inline;
+}
+
+.text-gradient_blue {
+  background: linear-gradient(90deg, #4c73ff 2.34%, #389bff 100.78%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}

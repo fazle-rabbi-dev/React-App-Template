@@ -1,0 +1,53 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { form_fields } from "@/lib/constants";
+import { signUpSchema } from "@/lib/validation";
+import { FormInput, Loader } from "@/components";
+import { useSignUp } from "@/hooks/internals";
+
+export const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: zodResolver(signUpSchema)
+  });
+
+  const { handleSignup, isCreatingAccount } = useSignUp();
+  
+  return (
+    <form
+      className="w-full space-y-4"
+      acceptCharset="utf-8"
+      onSubmit={handleSubmit(handleSignup)}
+    >
+      {form_fields.signUp().map(field => {
+        return (
+          <FormInput
+            key={field.name}
+            field={field}
+            register={register}
+            errors={errors}
+          />
+        );
+      })}
+
+      <button
+        className="btn-base btn-primary rounded-lg"
+        type="submit"
+        disabled={isCreatingAccount}
+      >
+        {isCreatingAccount ? (
+          <p className="flex-center gap-2">
+            <Loader size={30} />
+            <span>Creating account..</span>
+          </p>
+        ) : (
+          "Create account"
+        )}
+      </button>
+    </form>
+  );
+};
