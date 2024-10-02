@@ -1,18 +1,23 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider
+} from "firebase/auth";
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_apiKey,
-  authDomain: "online-resource-network.firebaseapp.com",
-  projectId: "online-resource-network",
-  storageBucket: "online-resource-network.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_messagingSenderId,
-  appId: import.meta.env.VITE_FIREBASE_appId
+const getEnv = name => {
+  return `${import.meta.env.VITE_FIREBASE_}${name}`;
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseConfig = {
+  apiKey: getEnv("apiKey"),
+  authDomain: getEnv("authDomain"),
+  projectId: getEnv("authDomain"),
+  storageBucket: getEnv("storageBucket"),
+  messagingSenderId: getEnv("messagingSenderId"),
+  appId: getEnv("appId")
+};
 
-// Initialize Firebase Authentication and get a reference to the service
+const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

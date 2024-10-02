@@ -8,12 +8,11 @@ import { QueryProvider } from "@/lib/react-query/QueryProvider";
 import "./globals.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <QueryProvider>
-            <Router>
-                <App />
-                {/*<DebugApp />*/}
-            </Router>
-        </QueryProvider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <QueryProvider>
+      <Router>
+        <App />
+      </Router>
+    </QueryProvider>
+  </React.StrictMode>
 );

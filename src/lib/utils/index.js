@@ -1,67 +1,46 @@
-import { toast } from "react-hot-toast";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { twMerge } from "tailwind-merge";
+import { toast } from "react-hot-toast";
 import { clsx } from "clsx";
 
 import successSound from "@/assets/sounds/success.wav";
 import errorSound from "@/assets/sounds/oops.wav";
-// import { DOMAINS } from "@/constants";
 
-const DOMAINS = ""
 
+// ╭────────────────────────────────────────────────────────╮
+// │      Utility Functions (General)
+// ╰────────────────────────────────────────────────────────╯
 export const cn = (...inputs) => {
   return twMerge(clsx(inputs));
 };
 
-export const showToast = (
-  msg = "Here is your toast",
-  type = "success",
-  time = 2000,
-  primaryColor = "hsl(135.1,88.3%,38.1%)"
-) => {
-  toast[type](msg, {
-    duration: time,
-    position: "top-center",
-    // icon: "👏",
-    iconTheme: {
-      primary: type === "success" ? primaryColor : "hsl(25, 95%, 53.1%)",
-      secondary: "#f8f8f8"
-    }
-  });
-};
-
-export const showAlert = (title, text, type) => {
-  Swal.fire({
-    title: title,
-    text: text,
-    icon: type
-  });
-};
-
-// Function to convert the first character of a string to uppercase
 export function capitalizeFirstLetter(string) {
   if (string?.length > 0) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   } else {
     return string;
   }
-}
+};
 
-// Function to convert MongoDB date format to a custom format
+export const formatDate = (date) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
 export function convertMongoDBDate(mongoDate) {
   // Convert MongoDB date string to JavaScript Date object
-  var dateObj = new Date(mongoDate);
-
-  // Get month, day, year, hours, and minutes
-  var month = dateObj.toLocaleString("default", { month: "short" });
-  var day = dateObj.getDate();
-  var year = dateObj.getFullYear();
-  var hours = dateObj.getHours();
-  var minutes = dateObj.getMinutes();
+  const dateObj = new Date(mongoDate);
+  const month = dateObj.toLocaleString("default", { month: "short" });
+  const day = dateObj.getDate();
+  const year = dateObj.getFullYear();
+  let hours = dateObj.getHours();
+  let minutes = dateObj.getMinutes();
 
   // Convert hours to 12-hour format
-  var period = "am";
+  let period = "am";
   if (hours >= 12) {
     period = "pm";
     if (hours > 12) {
@@ -74,48 +53,52 @@ export function convertMongoDBDate(mongoDate) {
     minutes = "0" + minutes;
   }
 
-  // Format the date and time string
-  var formattedDate = capitalizeFirstLetter(month) + " " + day + ", " + year;
-  var formattedTime = hours + ":" + minutes + period;
+  const formattedDate = capitalizeFirstLetter(month) + " " + day + ", " + year;
+  const formattedTime = hours + ":" + minutes + period;
 
-  // Return formatted date and time
   return { Date: formattedDate, Time: formattedTime };
-}
+};
 
-export const formatDate = date => {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
+// ╭────────────────────────────────────────────────────────╮
+// │      Alert & Toast Notifications
+// ╰────────────────────────────────────────────────────────╯
+export const showToast = (
+  msg = "Here is your toast",
+  type = "success",
+  time = 2000,
+  primaryColor = "hsl(135.1,88.3%,38.1%)"
+) => {
+  toast[type](msg, {
+    duration: time,
+    position: "top-center",
+    iconTheme: {
+      primary: type === "success" ? primaryColor : "hsl(25, 95%, 53.1%)",
+      secondary: "#f8f8f8",
+    },
   });
 };
 
-// LocalStorage Manager
-export class LocalStorage {
-  static setItem = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
-  };
+export const showAlert = (title, text, type) => {
+  Swal.fire({
+    title: title,
+    text: text,
+    icon: type,
+  });
+};
 
-  static getItem = key => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
-  };
-
-  static removeItem = key => {
-    localStorage.removeItem(key);
-  };
-}
-
-export const validateEmail = email => {
+// ╭────────────────────────────────────────────────────────╮
+// │      Validators
+// ╰────────────────────────────────────────────────────────╯
+export const validateEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email?.trim());
 };
 
-export const validatePassword = password => {
+export const validatePassword = (password) => {
   return password.length >= 8;
 };
 
-export const validateURL = url => {
+export const validateURL = (url) => {
   const urlPattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol (optional)
       "((([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]{2,})|" + // domain name
@@ -126,22 +109,55 @@ export const validateURL = url => {
       "(#[-a-zA-Z0-9_]*)?$",
     "i" // fragment locator
   );
-
   return !!urlPattern.test(url);
 };
 
-export const copyToClipboard = async text => {
-  // Check if the Clipboard API is available
+// ╭────────────────────────────────────────────────────────╮
+// │      LocalStorage Helper
+// ╰────────────────────────────────────────────────────────╯
+export class LocalStorage {
+  static setItem = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  static getItem = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  };
+
+  static removeItem = (key) => {
+    localStorage.removeItem(key);
+  };
+}
+
+// ╭────────────────────────────────────────────────────────╮
+// │      Sound Player
+// ╰────────────────────────────────────────────────────────╯
+export class playSound {
+  static success() {
+    const success = new Audio(successSound);
+    success.play();
+  }
+
+  static error() {
+    const error = new Audio(errorSound);
+    error.play();
+  }
+}
+
+// ╭────────────────────────────────────────────────────────╮
+// │      Clipboard Helper
+// ╰────────────────────────────────────────────────────────╯
+export const copyToClipboard = async (text) => {
   if (navigator.clipboard) {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Link copied successful.");
+      showToast("Link copied successfully.");
     } catch (err) {
       console.log(err);
       showToast("Failed to copy the link.", "error");
     }
   } else {
-    // Fallback for older browsers
     const textArea = document.createElement("textarea");
     textArea.value = text;
     document.body.appendChild(textArea);
@@ -151,7 +167,7 @@ export const copyToClipboard = async text => {
     try {
       const successful = document.execCommand("copy");
       if (!successful) throw Error;
-      showToast("Link copied successful.");
+      showToast("Link copied successfully.");
     } catch (err) {
       console.error(err);
       showToast("Failed to copy the link.", "error");
@@ -160,46 +176,3 @@ export const copyToClipboard = async text => {
     document.body.removeChild(textArea);
   }
 };
-
-export const generateShortUrl = link => {
-  if (!link) return null;
-  const hostname = window.location.hostname;
-
-  let baseUrl;
-  if (hostname === "localhost") {
-    baseUrl = `http://localhost:5173`;
-  } else {
-    baseUrl = `https://${hostname}`;
-  }
-
-  const shortUrl = `${baseUrl}/${link.alias || link.shortId}`;
-  return shortUrl;
-};
-
-export const generateAltShortUrl = link => {
-  if (!link) return null;
-
-  const hostname = window.location.hostname;
-  const altDomains = DOMAINS?.filter(domain => domain !== hostname);
-
-  const altShortUrls = altDomains.map(domain => {
-    const shortUrl = `https://${domain}/${link.shortId}`;
-    return shortUrl;
-  });
-  console.log({ altShortUrls });
-  return altShortUrls;
-};
-
-class playSound {
-  static error() {
-    const error = new Audio(errorSound);
-    error.play();
-  }
-
-  static success() {
-    const success = new Audio(successSound);
-    success.play();
-  }
-}
-
-export { playSound };

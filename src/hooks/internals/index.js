@@ -1,7 +1,2 @@
-import { useLogin } from "./useLogin.js";
-import { useSignUp } from "./useSignUp.js";
-
-export {
-  useLogin,
-  useSignUp
-};
+export { useLogin } from "./useLogin.js";
+export { useSignup } from "./useSignup.js";

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { form_fields } from "@/lib/constants";
 import { signUpSchema } from "@/lib/validation";
 import { FormInput, Loader } from "@/components";
-import { useSignUp } from "@/hooks/internals";
+import { useSignup } from "@/hooks/internals";
 
 export const SignUp = () => {
   const {
@@ -15,7 +15,7 @@ export const SignUp = () => {
     resolver: zodResolver(signUpSchema)
   });
 
-  const { handleSignup, isCreatingAccount } = useSignUp();
+  const { handleSignup, isCreatingAccount } = useSignup();
   
   return (
     <form

@@ -14,7 +14,7 @@ function DebugApp() {
 
   return (
     <>
-      <AppRoutes />
+      
       <Toaster />
       <p id="console"></p>
     </>

@@ -7,6 +7,7 @@ const AppRoutes = () => {
     <Routes>
       {/* Public Route */}
       <Route element={<RootLayout />}>
+        <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
       </Route>
       

@@ -15,7 +15,7 @@ export const Login = () => {
     resolver: zodResolver(signInSchema)
   });
 
-  const { handleEmaiPassLogin, isLogining } = useLogin();
+  const { handleEmaiPasswordLogin, isLogining } = useLogin();
 
   const params = new URLSearchParams(window.location.search);
   const clickSource = params.get("source");
@@ -30,7 +30,7 @@ export const Login = () => {
       <form
         className="w-full space-y-4"
         acceptCharset="utf-8"
-        onSubmit={handleSubmit(handleEmaiPassLogin)}
+        onSubmit={handleSubmit(handleEmaiPasswordLogin)}
       >
         {form_fields.signIn().map(field => {
           return (

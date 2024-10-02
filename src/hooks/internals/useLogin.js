@@ -2,8 +2,26 @@ import { useNavigate } from "react-router-dom";
 
 import { signInWithGoogle, signInWithGithub } from "@/lib/firebase/api";
 import { useLoginUserAccount, useSocialLogin } from "@/lib/react-query";
-import { showToast, showAlert, playSound, LocalStorage, capitalizeFirstLetter } from "@/lib/utils";
 import { useUserStore } from "@/stores";
+import {
+  showToast,
+  showAlert,
+  playSound,
+  LocalStorage,
+  capitalizeFirstLetter
+} from "@/lib/utils";
+
+
+// Helper
+const loginSuccessful = (message, loggedInUser) => {
+  playSound.success();
+  showToast(message);
+  LocalStorage.setItem("user", loggedInUser);
+  updateAuthStatus(loggedInUser);
+  setTimeout(function () {
+    navigate(destination);
+  }, 4000);
+};
 
 export const useLogin = () => {
   const { mutateAsync: loginUserAccount, isPending: isLogining } =
@@ -14,82 +32,81 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const updateAuthStatus = useUserStore(state => state.updateAuthStatus);
 
-  // =====================================================================================================================
-  // Email+Password Login
-  // =====================================================================================================================
-  const handleEmaiPassLogin = async data => {
-    const res = await loginUserAccount(data);
-    if (!res) showToast("Something went wrong. Try again.", "error", 4000);
+  // ╭────────────────────────────────────────────────────────╮
+  // │      Email+Password Login
+  // ╰────────────────────────────────────────────────────────╯
+  const handleEmaiPasswordLogin = async data => {
+    try {
+      const res = await loginUserAccount(data);
+      if (!res) throw new Error("Failed to login. Try again.");
 
-    /* data contains "user" property and user contains: { _id, email, accessToken } */
-    const { success, message, data: responseData } = res;
-
-    if (success) {
-      showToast(message);
-      playSound.success();
-      LocalStorage.setItem("user", responseData.user);
-      updateAuthStatus(responseData.user);
-      navigate("/dashboard");
-    } else {
-      showAlert("Error!", message, "error");
+      /* ==> "data" contains "user" property and "user" contains: { _id, email, accessToken }  <== */
+      const { success, message, data } = res;
+      
+      if (success) {
+        loginSuccessful(message, data.user);
+      } else {
+        throw new Error(message);
+      }
+    } catch (error) {
       playSound.error();
+      showAlert("Error occured!", error.message, "error");
       console.log({
-        error: message,
-        location: "SignIn.jsx >> handleEmaiPassLogin"
+        message: "Email+Password login failed.",
+        location: "useLogin.js >> handleEmaiPasswordLogin",
+        details: error
       });
     }
   };
 
-  // =====================================================================================================================
-  // Login With (Github/Google)
-  // =====================================================================================================================
+  // ╭────────────────────────────────────────────────────────╮
+  // │      Social Login With (Google & Github)
+  // ╰────────────────────────────────────────────────────────╯
   const handleSocialLogin = async platform => {
-    if (!["google", "github"].includes(platform)) {
-      throw new Error("Oopps! invalid platform.");
-    }
-
     try {
+      if (!["google", "github"].includes(platform)) {
+        throw new Error("Oopps! invalid platform.");
+      }
+
       const user =
         platform === "google"
           ? await signInWithGoogle()
           : await signInWithGithub();
       if (!user) {
         throw new Error(
-          "Oops! Something went wrong. Maybe you have already an account. Try to login with different platform"
+          "Oops! Something went wrong. Maybe you have already an account. Try to login with different platform."
         );
       }
 
-      // Now call api to create user account in db & Login
+      /* ==> Create user account in db & Login <== */
       const res = await socialLogin({ platform, user });
       console.log({
-        message: `${capitalizeFirstLetter(platform)} login status`,
-        res
+        message: `${capitalizeFirstLetter(platform)} login status.`,
+        res,
+        line_number: 82
       });
 
-      if (!res) showToast("Something went wrong. Try again.", "error", 4000);
-      const { success, statusCode, message, data: responseData } = res;
+      if (!res) throw new Error("Failed to login. Try again.");
+      const { success, message, data } = res;
 
       if (success) {
-        showToast(message);
-        playSound.success();
-        LocalStorage.setItem("user", responseData.user);
-        updateAuthStatus(responseData.user);
-        navigate("/dashboard");
+        loginSuccessful(message, data.user);
       } else {
         throw new Error(message);
       }
     } catch (error) {
-      showAlert("Error!", error.message, "error");
       playSound.error();
-      console.log({
-        error,
-        location: "useLogin.js >> handleSocialLogin"
+      showAlert("Error!", error.message, "error");
+      console.info({
+        message: "Social login failed.",
+        location: "useLogin.js >> socialLogin()",
+        details: error
       });
     }
   };
 
   return {
-    handleEmaiPassLogin,
+    handleEmaiPasswordLogin,
     handleSocialLogin,
     isLogining,
     isLoginingWithSocial
