@@ -1,13 +1,15 @@
-const ENV_MODE = import.meta.env.VITE_ENV_MODE;
-const API_BASE_URL =
-  ENV_MODE === "dev"
-    ? "http://localhost:3000/api"
-    : import.meta.env.VITE_API_BASE_URL;
+import { ENV_MODE, API_BASE_URL } from "@/lib/secrets"
 import { LocalStorage } from "@/lib/utils";
 
-// =====================================================================================================================
-// ********* Helpers *********
-// =====================================================================================================================
+const BASE_URL =
+  ENV_MODE === "dev"
+    ? "http://localhost:3000/api"
+    : API_BASE_URL;
+
+
+// ╭────────────────────────────────────────────────────────╮
+// │      Helpers
+// ╰────────────────────────────────────────────────────────╯
 const log = ({ error, msg }) => {
   if (!error) {
     return console.log(msg);
@@ -59,7 +61,7 @@ const ApiRequest = async ({
   }
 
   try {
-    const res = await fetch(`${API_BASE_URL}${path}`, options);
+    const res = await fetch(`${BASE_URL}${path}`, options);
     const jsonData = await res.json();
 
     return jsonData;
@@ -69,9 +71,11 @@ const ApiRequest = async ({
   }
 };
 
-// =====================================================================================================================
-// ********* Authentication *********
-// =====================================================================================================================
+
+
+// ╭────────────────────────────────────────────────────────╮
+// │      Authentication
+// ╰────────────────────────────────────────────────────────╯
 
 // Create Account
 export const createUserAccount = async userData => {
@@ -86,6 +90,7 @@ export const createUserAccount = async userData => {
   return response;
 };
 
+// Confirm account
 export const confirmAccount = async userData => {
   if (!userData || !userData.username || !userData.token) return false;
   const { username, token } = userData;
@@ -112,7 +117,7 @@ export const loginUserAccount = async userData => {
   return response;
 };
 
-// Social Auth
+// Social Login (Google & Github)
 export const socialLogin = async ({ platform, user }) => {
   const data = {
     path: `/auth/social-login`,

@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 
 const getEnv = name => {
-  return `${import.meta.env.VITE_FIREBASE_}${name}`;
+  return import.meta.env[`VITE_FIREBASE_${name}`]
 };
 
 const firebaseConfig = {

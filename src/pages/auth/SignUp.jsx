@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { form_fields } from "@/lib/constants";
-import { signUpSchema } from "@/lib/validation";
+import { signUpSchema } from "@/lib/validators";
 import { FormInput, Loader } from "@/components";
 import { useSignup } from "@/hooks/internals";
 
