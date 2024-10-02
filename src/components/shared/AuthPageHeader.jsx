@@ -15,57 +15,41 @@ export const AuthPageHeader = ({ parent }) => {
   };
 
   return (
-    <div className="">
-      <p className="flex items-center gap-3">
-        <span>
-          <Undo2 size={20} />
-        </span>
-        <Link
-          to="/"
-          className="text-sm"
-        >
-          Go Back
-        </Link>
+    <div className="w-full mb-10">
+      <h1 className="heading2">
+        Create an account
+      </h1>
+      <p className='mt-2 text-gray-700'>
+        {
+          parent === "Sign up" ? (
+            <>
+              Already have an account? {" "}
+              <Link className='text-blue-600' to="/login">Sign in</Link>
+            </>
+          ) : (
+            <>
+              Dont have an account? {" "} 
+              <Link className='text-blue-600' to="/sign-up">Sign up</Link>
+            </>
+          )
+        }
       </p>
-
-      <div className="mt-6 text-center">
-        <span className="text-2xl">🌐</span>
-        <h1 className="mt-4 mx-8 text-2xl font-medium text-center tracking-wide leading-8">
-          {parent} to Online Resource Network
-        </h1>
-        <div className="flex flex-col w-full mt-10 space-y-4">
-          <button
-            onClick={() => handleSocialLogin("google")}
-            className="social-auth-btn"
-            // disabled={disableButton}
-          >
-            <img
-              width="16px"
-              src="/images/google.png"
-              alt="Google"
-            />
-            <span>{parent} with Google</span>
-          </button>
-          <button
-            onClick={() => handleSocialLogin("github")}
-            className="social-auth-btn"
-            // disabled={disableButton}
-          >
-            <img
-              width="16px"
-              src="/images/github.png"
-              alt="Github"
-            />
-            <span>{parent} with Github</span>
-          </button>
-        </div>
+      
+      {/* Social Button Group */}
+      <div className="mt-8 flex-between gap-3">
+        <button className='h-16 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
+          <img width="20%" className="" src="/images/google.png" alt="Google" />
+        </button>
+        <button className='h-16 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
+          <img width="20%" className="" src="/images/github.png" alt="Github" />
+        </button>
       </div>
-
-      <p className="w-full flex items-center gap-2 my-5">
-        <span className="hr-line"></span>
-        <span className="text-gray-70">or</span>
-        <span className="hr-line"></span>
-      </p>
+      
+      <div className="mt-3 flex items-center gap-2">
+        <span className='h-[1px] bg-gray-200 flex-1'></span>
+        <span className='text-gray-600'>Or continue with email</span>
+        <span className='h-[1px] bg-gray-200 flex-1'></span>
+      </div>
     </div>
   );
 };

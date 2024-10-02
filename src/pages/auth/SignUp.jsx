@@ -6,6 +6,7 @@ import { signUpSchema } from "@/lib/validators";
 import { FormInput, Loader } from "@/components";
 import { useSignup } from "@/hooks/internals";
 
+
 export const SignUp = () => {
   const {
     register,
@@ -16,7 +17,7 @@ export const SignUp = () => {
   });
 
   const { handleSignup, isCreatingAccount } = useSignup();
-  
+
   return (
     <form
       className="w-full space-y-4"
@@ -35,7 +36,7 @@ export const SignUp = () => {
       })}
 
       <button
-        className="btn-base btn-primary rounded-lg"
+        className="btn-base bg-blue-500 text-white text-lg rounded-xl hover:bg-blue-600"
         type="submit"
         disabled={isCreatingAccount}
       >
@@ -45,7 +46,7 @@ export const SignUp = () => {
             <span>Creating account..</span>
           </p>
         ) : (
-          "Create account"
+          "Sign up"
         )}
       </button>
     </form>

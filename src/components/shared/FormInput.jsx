@@ -5,6 +5,7 @@ export const FormInput = ({
 }) => {
   return (
     <div>
+      <label className='inline-block text-lg mb-2' for="">{label}</label>
       <input
         {...register(name)}
         className="form-input"

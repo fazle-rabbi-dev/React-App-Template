@@ -6,27 +6,32 @@ export class form_fields {
       {
         label: "Name",
         name: "name",
-        type: "text"
+        type: "text",
+        placeholder: "Your name"
       },
       {
         label: "Username",
         name: "username",
-        type: "text"
+        type: "text",
+        placeholder: "Choose an username"
       },
       {
-        label: "Email",
+        label: "Email address",
         name: "email",
-        type: "email"
+        type: "email",
+        placeholder: "Enter your email"
       },
       {
         label: "Password",
         name: "password",
-        type: "password"
+        type: "password",
+        placeholder: "Enter your password"
       },
       {
         label: "Confirm Password",
         name: "confirmPassword",
-        type: "password"
+        type: "password",
+        placeholder: "Re enter your password"
       }
     ];
   }
@@ -34,35 +39,16 @@ export class form_fields {
   static signIn() {
     return [
       {
-        label: "Email",
+        label: "Email address",
         name: "email",
-        type: "email"
+        type: "email",
+        placeholder: "Enter your email"
       },
       {
         label: "Password",
         name: "password",
-        type: "password"
-      }
-    ];
-  }
-
-  static submitResource() {
-    return [
-      {
-        label: "Title",
-        name: "title",
-        type: "text"
-      },
-      {
-        label: "Keywords",
-        name: "keywords",
-        type: "text",
-        placeholder: "keywords (separate by ,)"
-      },
-      {
-        label: "Link",
-        name: "link",
-        type: "url"
+        type: "password",
+        placeholder: "Enter your password"
       }
     ];
   }

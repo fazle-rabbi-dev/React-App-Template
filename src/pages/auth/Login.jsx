@@ -43,7 +43,7 @@ export const Login = () => {
         })}
 
         <button
-          className="btn-base btn-primary rounded-lg"
+          className="btn-base bg-blue-500 text-white text-lg rounded-xl hover:bg-blue-600"
           type="submit"
           disabled={isLogining}
         >
