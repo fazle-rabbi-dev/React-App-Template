@@ -1,21 +1,21 @@
 @font-face {
-  font-family: 'Switzer-Light';
-  src: url('../assets/fonts/Switzer-Light.ttf') format('truetype');
+  font-family: 'Author-Light';
+  src: url('./assets/fonts/Author-Light.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Switzer-Regular';
-  src: url('../assets/fonts/Switzer-Regular.ttf') format('truetype');
+  font-family: 'Author-Regular';
+  src: url('./assets/fonts/Author-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Switzer-Medium';
-  src: url('../assets/fonts/Switzer-Medium.ttf') format('truetype');
+  font-family: 'Author-Medium';
+  src: url('./assets/fonts/Author-Medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Switzer-Bold';
-  src: url('../assets/fonts/Switzer-Bold.ttf') format('truetype');
+  font-family: 'Author-Bold';
+  src: url('./assets/fonts/Author-Bold.ttf') format('truetype');
 }
 
 @tailwind base;
@@ -30,7 +30,7 @@
 
 @layer utilities {
   body {
-    @apply min-h-screen bg-[white] font-switzer-regular dark:bg-bl-50 dark:text-wh-50;
+    @apply min-h-screen bg-[white] font-author-medium dark:bg-bl-50 dark:text-wh-50;
   }
   
   /*==== Layout ====*/
@@ -57,15 +57,15 @@
   
   /*==== Typography ====*/
   .heading1 {
-    @apply text-5xl  tracking-wide;
+    @apply text-5xl font-author-bold tracking-wide;
   }
   
   .heading2 {
-    @apply text-4xl  tracking-wide;
+    @apply text-4xl font-author-bold tracking-wide;
   }
   
   .heading3 {
-    @apply text-3xl  tracking-wide;
+    @apply text-3xl font-author-bold tracking-wide;
   }
   
   .heading4 {
@@ -106,7 +106,7 @@
   
   /*==== Form ====*/
   .form-input {
-    @apply h-12 w-full px-4 rounded-xl bg-gray-50 border-[1px] border-gray-200 outline-0 focus:border-blue-500 placeholder:text-gray-600 active:ring-[1.5px] active:ring-gray-200 active:ring-offset-2
+    @apply h-12 w-full text-lg px-4 rounded-xl bg-gray-50 border-[1px] border-gray-200 outline-0 focus:border-blue-500 placeholder:text-gray-600 active:ring-[1.5px] active:ring-gray-200 active:ring-offset-2
   }
   
   .error-message {

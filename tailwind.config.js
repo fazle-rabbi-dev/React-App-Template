@@ -8,10 +8,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-          "switzer-light": ["Switzer-Light", "sans"],
-          "switzer-regular": ["Switzer-Regular", "sans"],
-          "switzer-medium": ["Switzer-Medium", "sans"],
-          "switzer-bold": ["Switzer-Bold", "sans"],
+          "author-light": ["Author-Light", "sans"],
+          "author-regular": ["Author-Regular", "sans"],
+          "author-medium": ["Author-Medium", "sans"],
+          "author-bold": ["Author-Bold", "sans"],
       },
       colors: {
         wh: {

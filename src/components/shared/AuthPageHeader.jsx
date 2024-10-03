@@ -17,7 +17,9 @@ export const AuthPageHeader = ({ parent }) => {
   return (
     <div className="w-full mb-10">
       <h1 className="heading2">
-        Create an account
+        {
+          parent === "Sign up" ? "Create an account" : "Sign in to your account"
+        }
       </h1>
       <p className='mt-2 text-gray-700'>
         {
@@ -37,10 +39,10 @@ export const AuthPageHeader = ({ parent }) => {
       
       {/* Social Button Group */}
       <div className="mt-8 flex-between gap-3">
-        <button className='h-16 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
+        <button className='h-16 flex-1 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
           <img width="20%" className="" src="/images/google.png" alt="Google" />
         </button>
-        <button className='h-16 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
+        <button className='h-16 flex-1 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
           <img width="20%" className="" src="/images/github.png" alt="Github" />
         </button>
       </div>

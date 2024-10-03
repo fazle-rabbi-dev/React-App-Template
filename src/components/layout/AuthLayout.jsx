@@ -2,7 +2,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import { Undo2 } from "lucide-react";
 
-import { MainLayout, AuthPageHeader } from "@/components";
+import { MainLayout, AuthPageHeader, Header } from "@/components";
 import { useUserStore } from "@/stores";
 
 export const AuthLayout = () => {
@@ -19,11 +19,14 @@ export const AuthLayout = () => {
   }
 
   return (
-    <MainLayout onlyChildren>
-      <section className="flex flex-col justify-center items-center pb-16">
-        <AuthPageHeader parent={title} />
-        <Outlet />
-      </section>
-    </MainLayout>
+    <>
+      <Header />
+      <MainLayout onlyChildren>
+        <section className="flex flex-col justify-center items-center pb-16 md:max-w-md md:mx-auto">
+          <AuthPageHeader parent={title} />
+          <Outlet />
+        </section>
+      </MainLayout>
+    </>
   );
 };
