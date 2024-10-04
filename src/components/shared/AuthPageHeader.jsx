@@ -3,17 +3,15 @@ import { useState, useEffect } from "react";
 import { Undo2 } from "lucide-react";
 
 import { useLogin } from "@/hooks/internals";
+import { useUserStore } from "@/stores";
+
 
 export const AuthPageHeader = ({ parent }) => {
   const {
-    handleSocialLogin,
-    isLoginingWithSocial
+    handleSocialLogin
   } = useLogin();
+  const is_Email_Login_In_Progress = useUserStore(state => state.is_Email_Login_In_Progress);
   
-  const disableButton = () => {
-    return isLoginingWithSocial;
-  };
-
   return (
     <div className="w-full mb-10">
       <h1 className="heading2">
@@ -26,12 +24,12 @@ export const AuthPageHeader = ({ parent }) => {
           parent === "Sign up" ? (
             <>
               Already have an account? {" "}
-              <Link className='text-blue-600' to="/login">Sign in</Link>
+              <Link className={`text-blue-600 ${is_Email_Login_In_Progress && "pointer-events-none"}`} to="/login">Sign in</Link>
             </>
           ) : (
             <>
               Dont have an account? {" "} 
-              <Link className='text-blue-600' to="/sign-up">Sign up</Link>
+              <Link className={`text-blue-600 ${is_Email_Login_In_Progress && "pointer-events-none"}`} to="/sign-up">Sign up</Link>
             </>
           )
         }
@@ -39,10 +37,10 @@ export const AuthPageHeader = ({ parent }) => {
       
       {/* Social Button Group */}
       <div className="mt-8 flex-between gap-3">
-        <button className='h-16 flex-1 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
+        <button onClick={() => handleSocialLogin('google')} className='social-login-btn' type="button" disabled={is_Email_Login_In_Progress}>
           <img width="20%" className="" src="/images/google.png" alt="Google" />
         </button>
-        <button className='h-16 flex-1 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100' type="button">
+        <button onClick={() => handleSocialLogin('github')} className='social-login-btn' type="button" disabled={is_Email_Login_In_Progress}>
           <img width="20%" className="" src="/images/github.png" alt="Github" />
         </button>
       </div>

@@ -12,17 +12,6 @@ import {
 } from "@/lib/utils";
 
 
-// Helper
-const loginSuccessful = (message, loggedInUser) => {
-  playSound.success();
-  showToast(message);
-  LocalStorage.setItem("user", loggedInUser);
-  updateAuthStatus(loggedInUser);
-  setTimeout(function () {
-    navigate(destination);
-  }, 4000);
-};
-
 export const useLogin = () => {
   const { mutateAsync: loginUserAccount, isPending: isLogining } =
     useLoginUserAccount();
@@ -30,19 +19,33 @@ export const useLogin = () => {
     useSocialLogin();
 
   const navigate = useNavigate();
+
   const updateAuthStatus = useUserStore(state => state.updateAuthStatus);
+  const toggleLoginStatus = useUserStore(state => state.toggleLoginStatus);
+
+  // Helper
+  const loginSuccessful = (message, loggedInUser) => {
+    playSound.success();
+    showToast(message);
+    LocalStorage.setItem("user", loggedInUser);
+    updateAuthStatus(loggedInUser);
+    /*setTimeout(function () {
+      navigate("/dashboard");
+    }, 4000);*/
+  };
 
   // ╭────────────────────────────────────────────────────────╮
   // │      Email+Password Login
   // ╰────────────────────────────────────────────────────────╯
-  const handleEmaiPasswordLogin = async data => {
+  const handleEmaiPasswordLogin = async credentials => {
     try {
-      const res = await loginUserAccount(data);
+      toggleLoginStatus("email");
+      const res = await loginUserAccount(credentials);
       if (!res) throw new Error("Failed to login. Try again.");
 
       /* ==> "data" contains "user" property and "user" contains: { _id, email, accessToken }  <== */
       const { success, message, data } = res;
-      
+
       if (success) {
         loginSuccessful(message, data.user);
       } else {
@@ -56,6 +59,8 @@ export const useLogin = () => {
         location: "useLogin.js >> handleEmaiPasswordLogin",
         details: error
       });
+    } finally {
+      toggleLoginStatus("email");
     }
   };
 
@@ -79,6 +84,7 @@ export const useLogin = () => {
       }
 
       /* ==> Create user account in db & Login <== */
+      toggleLoginStatus("social");
       const res = await socialLogin({ platform, user });
       console.log({
         message: `${capitalizeFirstLetter(platform)} login status.`,
@@ -102,6 +108,8 @@ export const useLogin = () => {
         location: "useLogin.js >> socialLogin()",
         details: error
       });
+    } finally {
+      toggleLoginStatus("social");
     }
   };
 

@@ -14,11 +14,9 @@ export const Login = () => {
   } = useForm({
     resolver: zodResolver(signInSchema)
   });
-
-  const { handleEmaiPasswordLogin, isLogining } = useLogin();
-
   const params = new URLSearchParams(window.location.search);
   const clickSource = params.get("source");
+  const { handleEmaiPasswordLogin, isLogining } = useLogin();
 
   return (
     <>

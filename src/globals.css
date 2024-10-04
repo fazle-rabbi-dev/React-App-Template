@@ -35,7 +35,7 @@
   
   /*==== Layout ====*/
   .max-container {
-    @apply flex-1 w-full mx-auto md:max-w-3xl xl:max-w-5xl;
+    @apply flex flex-1 w-full mx-auto md:max-w-3xl xl:max-w-5xl;
   }
 
   .padding-container {
@@ -96,8 +96,8 @@
     @apply bg-wh-60 text-bl-50;
   }
   
-  .social-auth-btn{
-    @apply block flex items-center justify-center gap-2 w-full h-12 border-[1px] border-gray-50 rounded-lg
+  .social-login-btn{
+    @apply h-16 flex-1 flex-center px-3 rounded-2xl border-[1px] border-gray-200 hover:bg-gray-100
   }
   
   .hr-line {
