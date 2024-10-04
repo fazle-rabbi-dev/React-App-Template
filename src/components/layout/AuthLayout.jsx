@@ -1,16 +1,26 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import { Undo2 } from "lucide-react";
+import { ErrorBoundary } from "react-error-boundary";
 
-import { MainLayout, AuthPageHeader, Header, Loader } from "@/components";
+import {
+  MainLayout,
+  AuthPageHeader,
+  Header,
+  Loader,
+  FallbackComponent,
+  PageLoader
+} from "@/components";
 import { useUserStore } from "@/stores";
 import { useLogin } from "@/hooks/internals";
 
 export const AuthLayout = () => {
-  const isLoggedIn = useUserStore(state => state.isLoggedIn);
   const is_Social_Login_In_Progress = useUserStore(
     state => state.is_Social_Login_In_Progress
   );
+  const isLoggedIn = useUserStore(state => state.isLoggedIn);
+  const isUserLoading = useUserStore(state => state.isUserLoading);
+  
   const { pathname } = useLocation();
   const { isLoginingWithSocial } = useLogin();
 
@@ -18,13 +28,17 @@ export const AuthLayout = () => {
   if (pathname === "/login") {
     title = "Sign in";
   }
-
+  
+  if(isUserLoading) {
+    return <PageLoader />
+  }
+  
   if (isLoggedIn) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard_auth" />;
   }
 
   return (
-    <>
+    <ErrorBoundary FallbackComponent={FallbackComponent}>
       <Header />
       <MainLayout onlyChildren>
         {is_Social_Login_In_Progress ? (
@@ -41,6 +55,6 @@ export const AuthLayout = () => {
           </section>
         )}
       </MainLayout>
-    </>
+    </ErrorBoundary>
   );
 };

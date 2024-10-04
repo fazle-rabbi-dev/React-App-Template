@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { LocalStorage } from "@/lib/utils";
+import { getUser } from "@/lib/api";
 
 export const useUserStore = create((set, get) => ({
   isLoggedIn: false,
@@ -8,9 +10,13 @@ export const useUserStore = create((set, get) => ({
   user: null,
   
   initializeUser: async () => {
-    /*set({
-      isUserLoading: false
-    });*/
+    const user = await getUser();
+    
+    set({
+      isLoggedIn: !!user,
+      isUserLoading: false,
+      user: user || null
+    });
   },
   
   updateAuthStatus: (user) => {
@@ -33,5 +39,13 @@ export const useUserStore = create((set, get) => ({
         is_Social_Login_In_Progress: !get().is_Social_Login_In_Progress
       });
     }
+  },
+  
+  logout: () => {
+    LocalStorage.removeItem('user');
+    set({
+      isLoggedIn: false,
+      user: null
+    });
   }
 }));

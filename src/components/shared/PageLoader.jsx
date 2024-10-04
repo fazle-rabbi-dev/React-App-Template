@@ -8,7 +8,7 @@ export const PageLoader = ({ color }) => {
         color={color || "#181818"}
         // loading={loading}
         // cssOverride={override}
-        size={70}
+        size={40}
         aria-label="Loading Spinner"
         data-testid="loader"
       />

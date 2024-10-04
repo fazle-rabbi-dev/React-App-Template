@@ -5,3 +5,4 @@ export { PageLoader } from "./PageLoader.jsx";
 export { AuthPageHeader } from "./AuthPageHeader.jsx";
 export { Button } from "./Button.jsx";
 export { FormInput } from "./FormInput.jsx";
+export { FallbackComponent } from "./FallbackComponent.jsx";
