@@ -4,7 +4,7 @@ export function FallbackComponent({ error, resetErrorBoundary }) {
   return (
     <div className="bg-white-50 shadow rounded-2xl m-10 p-10">
       <p>Something went wrong:</p>
-      <pre style={{ color: "red" }}>{error.message}</pre>
+      <p className="break-all" style={{ color: "red" }}>{error.message}</p>
     </div>
   );
 }

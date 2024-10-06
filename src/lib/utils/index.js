@@ -94,6 +94,17 @@ export const validateEmail = (email) => {
   return regex.test(email?.trim());
 };
 
+export function validateUsername(username) {
+    if (!username || username.length < 3) {
+        return false;
+    }
+
+    // starts with a letter, can contain letters, numbers, or hyphens, and ends with a letter or number
+    const regex = /^[a-zA-Z][a-zA-Z0-9-]*[a-zA-Z0-9]$/;
+
+    return regex.test(username);
+}
+
 export const validatePassword = (password) => {
   return password.length >= 8;
 };

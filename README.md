@@ -1,40 +1,20 @@
-# {project_name}
+# React-App-Template
 
-<img height="auto" width="100%" src="/public/thumbnail.jpg" alt="Name - Thumbnail" />
+My custom React app template created to simplify the process of getting started to create a nee React app. This template contains all the required boilrrplate code that needs in every react application that need authentication.
 
-Pariatur eiusmod consequat magna irure aliqua aliquip nisi minim duis et fugiat amet aliqua esse ut officia eu cillum occaecat duis pariatur eiusmod in id voluptate aliquip in ullamco incididunt in ad ad sunt mollit occaecat in do deserunt incididunt ipsum minim eu amet veniam esse cupidatat consequat aute enim dolor cillum deserunt eiusmod cillum consectetur enim fugiat do fugiat
-
-### Live Demo 🎉
-- Explore the live version of {project_name} <a target="_blank" href="">here</a>.
-
-- Explore Backend code <a href="#">here.</a>
-
-### 🔴 Unveiling the Journey of Building {project_name}
-> [!Note]
-> Velit ut ullamco enim velit consectetur quis minim sit dolor dolor in ipsum eiusmod quis aute mollit sint irure ex irure magna sunt veniam magna qui enim eiusmod irure sint magna sit eiusmod minim proident ut dolor dolore reprehenderit aliqua ullamco pariatur pariatur consequat amet velit consectetur aliquip veniam et
+### Usage
+- Clone the repo
+- Run: `$ npm run install`
 
 ### Project Created at
-- 🗓 *February 24 - February 2024*
+- 🗓 *October 24*
 
 ### Technologies Used ⚒️
-- Next.js
+- Vite + React
 - Tailwindcss
-- MongoDB & Mongoose
-- Jsonwebtoken
-
-### Features
-- 👥 Create & Login account
-- 🔑 Forgot password functionality
-- 🔒 Change password securely
-- 🛒 Add items into the cart
-- 💳 Seamless checkout process
-- 📦 View & Manage orders
-- 🚪 Logout functionality
-
-### .env Setup
-```sh
-
-```
+- Zustand
+- React-Hook-Form + Zod
+- React-Query
 
 ### 📬 Connect with me
 > Let's connect! Reach out for collaborations, projects, or just a friendly chat.

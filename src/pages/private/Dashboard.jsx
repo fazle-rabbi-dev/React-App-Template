@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
 export const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
-
+    <section className="">
+      <h2 className="heading2">Dashboard</h2>
+    </section>
+  );
+};

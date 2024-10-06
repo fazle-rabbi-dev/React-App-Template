@@ -14,7 +14,7 @@ export const RootLayout = () => {
   console.log("RootLayout.jsx")
   
   if (isLoggedIn) {
-    return <Navigate to="/dashboard_root9" />;
+    return <Navigate to="/dashboard" />;
   }
   
   return (

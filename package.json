@@ -1,18 +1,17 @@
 {
-  "name": "abc",
+  "name": "React-App-Template",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "install": "bash install.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@tanstack/react-query": "^5.56.2",
-    "appwrite": "^15.0.0",
-    "axios": "^1.7.7",
     "clsx": "^2.1.1",
     "firebase": "^10.14.0",
     "lucide-react": "^0.446.0",

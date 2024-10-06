@@ -33,6 +33,7 @@ export const Login = () => {
         {form_fields.signIn().map(field => {
           return (
             <FormInput
+              key={field.label}
               field={field}
               register={register}
               errors={errors}

@@ -2,6 +2,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import { Undo2 } from "lucide-react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   MainLayout,
@@ -15,12 +16,17 @@ import { useUserStore } from "@/stores";
 import { useLogin } from "@/hooks/internals";
 
 export const AuthLayout = () => {
-  const is_Social_Login_In_Progress = useUserStore(
-    state => state.is_Social_Login_In_Progress
-  );
-  const isLoggedIn = useUserStore(state => state.isLoggedIn);
-  const isUserLoading = useUserStore(state => state.isUserLoading);
-  
+  const { is_Social_Login_In_Progress, isLoggedIn, isUserLoading } =
+    useUserStore(
+      useShallow(state => {
+        return {
+          is_Social_Login_In_Progress: state.is_Social_Login_In_Progress,
+          isLoggedIn: state.isLoggedIn,
+          isUserLoading: state.isUserLoading
+        };
+      })
+    );
+
   const { pathname } = useLocation();
   const { isLoginingWithSocial } = useLogin();
 
@@ -28,11 +34,11 @@ export const AuthLayout = () => {
   if (pathname === "/login") {
     title = "Sign in";
   }
-  
-  if(isUserLoading) {
-    return <PageLoader />
+
+  if (isUserLoading) {
+    return <PageLoader />;
   }
-  
+
   if (isLoggedIn) {
     return <Navigate to="/dashboard_auth" />;
   }
