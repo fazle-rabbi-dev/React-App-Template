@@ -1,4 +1,4 @@
 git add .
 read -p "[*] Commit Message:" msg
 git commit -m "$msg"
-git push
+git push -u origin main

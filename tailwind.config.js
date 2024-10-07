@@ -15,10 +15,12 @@ export default {
       },
       colors: {
         wh: {
+          DEFAULT: "#ffffff",
           50: "#f8f8f8",
           60: "#ededed"
         },
         bl: {
+          DEFAULT: "#222222",
           50: "#030303",
           60: "#101010"
         }

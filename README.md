@@ -1,6 +1,6 @@
 # React-App-Template
 
-My custom React app template created to simplify the process of getting started to create a nee React app. This template contains all the required boilrrplate code that needs in every react application that need authentication.
+My custom React app template created to simplify the process of getting started to create a new React app. This template contains all the required boilrrplate code that needs in every react application that need authentication.
 
 ### Usage
 - Clone the repo
